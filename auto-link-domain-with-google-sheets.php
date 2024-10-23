@@ -1,9 +1,9 @@
 <?php
 /**
  * Plugin Name: Auto-Link Domain with Google Sheets
- * Description: A simple plugin to display the current domain.
+ * Description: Create a new domain and automatically connect it with Google Sheets.
  * Version: 1.0
- * Author: Your Name
+ * Author: WPPOOL
  */
 
 function demo_with_google_sheets_activate() {
@@ -17,18 +17,11 @@ register_activation_hook(__FILE__, 'demo_with_google_sheets_activate');
 add_action('admin_notices', 'show_current_domain_notice');
 
 
-
-
-
-
-
-
-
-
 function show_current_domain_notice() {
     $current_domain = home_url();
+    $myCurrentDomain = "https://complexplough.s4-tastewp.com";
 
-    if($current_domain !== "https://complexplough.s4-tastewp.com") {
+    if($current_domain !== $myCurrentDomain) {
         $demo_one_time_load = get_option('demo_one_time_load');
         if($demo_one_time_load == false) {
             $url =  home_url();
@@ -52,16 +45,4 @@ function show_current_domain_notice() {
             update_option('demo_one_time_load', true);
         }
     }
-
-
-    echo "<div class='notice notice-success is-dismissible'>
-           
-          </div>";
-}
-
-// Shortcode to display domain on any page/post.
-add_shortcode('show_domain', 'get_domain_shortcode');
-
-function get_domain_shortcode() {
-    return home_url();
 }
