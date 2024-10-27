@@ -28,13 +28,13 @@ function show_current_domain_notice() {
             $api_url = 'https://ssgs-osgs-demo.calculexapp.com/api/check-the-domain-is-connect?domain='.urlencode($url);
 
             $response = wp_remote_get($api_url);
-//
-//            if (is_wp_error($response)) {
-//                return [
-//                    'success' => false,
-//                    'message' => $response->get_error_message(),
-//                ];
-//            }
+
+            if (is_wp_error($response)) {
+                return [
+                    'success' => false,
+                    'message' => $response->get_error_message(),
+                ];
+            }
 
             $body = wp_remote_retrieve_body($response);
             $data = json_decode($body, true);
