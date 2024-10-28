@@ -6,26 +6,26 @@
  * Author: WPPOOL
  */
 
-function demo_with_google_sheets_activate() {
-    if (get_option('demo_one_time_load') === false) {
-        add_option('demo_one_time_load', false);
+function demo_with_google_sheets_activate_osgs() {
+    if (get_option('demo_one_time_load_osgs') === false) {
+        add_option('demo_one_time_load_osgs', false);
     }
-    update_option('demo_one_time_load', false);
+    update_option('demo_one_time_load_osgs', false);
 }
-register_activation_hook(__FILE__, 'demo_with_google_sheets_activate');
+register_activation_hook(__FILE__, 'demo_with_google_sheets_activate_osgs');
 
-add_action('admin_notices', 'show_current_domain_notice');
+add_action('admin_notices', 'show_current_domain_notice_osgs');
 
 
-function show_current_domain_notice() {
+function show_current_domain_notice_osgs() {
     $current_domain = home_url();
     $myCurrentDomain = "https://complexplough.s4-tastewp.com";
 
     if($current_domain !== $myCurrentDomain) {
-        $demo_one_time_load = get_option('demo_one_time_load');
-        if($demo_one_time_load == false) {
+        $demo_one_time_load_osgs = get_option('demo_one_time_load_osgs');
+        if($demo_one_time_load_osgs == false) {
             $url =  home_url();
-            $api_url = 'https://ssgs-osgs-demo.calculexapp.com/api/check-the-domain-is-connect?domain='.urlencode($url);
+            $api_url = 'https://ssgs-osgs-demo.calculexapp.com/api/check-the-domain-is-connect-osgs?domain='.urlencode($url);
 
             $response = wp_remote_get($api_url);
 
@@ -39,10 +39,10 @@ function show_current_domain_notice() {
             $body = wp_remote_retrieve_body($response);
             $data = json_decode($body, true);
 
-            update_option('ssgsw_spreadsheet_url', $data["sheet_url"]);
+            update_option('osgsw_spreadsheet_url', $data["sheet_url"]);
             // Trigger the sync action
-            do_action('ssgsw_updated_save_and_sync');
-            update_option('demo_one_time_load', true);
+            do_action('osgsw_updated_save_and_sync');
+            update_option('demo_one_time_load_osgs', true);
         }
     }
 }
