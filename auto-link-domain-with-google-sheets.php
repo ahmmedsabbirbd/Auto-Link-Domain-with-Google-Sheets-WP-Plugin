@@ -32,7 +32,7 @@ function show_current_domain_notice() {
         $demo_one_time_load = get_option('demo_one_time_load');
         if($demo_one_time_load == false) {
             $url =  home_url();
-            $api_url = 'https://ssgs.000.pe/api/check-the-domain-is-connect?domain='.urlencode($url);
+            $api_url = 'http://ssgs-osgs.sportsontheweb.net/api/check-the-domain-is-connect?domain='.urlencode($url);
 
             $response = wp_remote_get($api_url);
 
