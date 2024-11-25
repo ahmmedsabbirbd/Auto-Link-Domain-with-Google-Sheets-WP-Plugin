@@ -26,7 +26,7 @@ function extract_sheet_id($url) {
 
 function show_current_domain_notice() {
     $current_domain = home_url();
-    $myCurrentDomain = "https://causereading.s2-tastewp.com";
+    $myCurrentDomain = "https://placidcomfort.s4-tastewp.com/";
 
     if($current_domain !== $myCurrentDomain) {
         $demo_one_time_load = get_option('demo_one_time_load');
