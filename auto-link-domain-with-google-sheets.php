@@ -26,7 +26,7 @@ function extract_sheet_id($url) {
 
 function show_current_domain_notice_osgs() {
     $current_domain = home_url();
-    $myCurrentDomain = "http://localhost/osgs-demo-site";
+    $myCurrentDomain = "http://osgs.local";
 
     if($current_domain !== $myCurrentDomain) {
         $demo_one_time_load_osgs = get_option('demo_one_time_load_osgs');
