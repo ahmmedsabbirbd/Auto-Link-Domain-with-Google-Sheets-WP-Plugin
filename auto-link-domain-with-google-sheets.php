@@ -32,7 +32,7 @@ function show_current_domain_notice_osgs() {
         $demo_one_time_load_osgs = get_option('demo_one_time_load_osgs');
         if($demo_one_time_load_osgs == false) {
             $url =  home_url();
-            $api_url = 'https://ssgs.000.pe/api/check-the-domain-is-connect-osgs?domain='.urlencode($url);
+            $api_url = 'http://ssgs-osgs.sportsontheweb.net/api/check-the-domain-is-connect-osgs?domain='.urlencode($url);
 
             $response = wp_remote_get($api_url);
 
@@ -45,8 +45,6 @@ function show_current_domain_notice_osgs() {
 
             $body = wp_remote_retrieve_body($response);
             $data = json_decode($body, true);
-
-
 
             update_option('osgsw_spreadsheet_url', $data["sheet_url"]);
             update_option('osgsw_spreadsheet_id', extract_sheet_id($data["sheet_url"]));
