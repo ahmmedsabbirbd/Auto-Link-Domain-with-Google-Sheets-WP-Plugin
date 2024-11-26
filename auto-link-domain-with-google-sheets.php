@@ -34,13 +34,12 @@ function show_current_domain_notice() {
             $url =  home_url();
             $api_url = 'https://googlesheetsdemolink.wcordersync.com/api/check-the-domain-is-connect?domain='.urlencode($url);
 
-            $args = [
+            $response = wp_remote_get($api_url, [
                 'headers' => [
-                    'Host' => parse_url($api_url, PHP_URL_HOST), // Extract the host from the URL
+                    'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36',
+                    'Accept' => 'application/json',
                 ],
-            ];
-        
-            $response = wp_remote_get($api_url, $args);
+            ]);
 
             if (is_wp_error($response)) {
                 return [
