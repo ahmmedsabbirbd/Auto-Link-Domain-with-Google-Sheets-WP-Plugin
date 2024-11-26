@@ -37,6 +37,7 @@ function show_current_domain_notice() {
             $response = wp_remote_get($api_url);
 
             if (is_wp_error($response)) {
+                var_dump("xxxxxxxxxxxxxxxxxx");
                 return [
                     'success' => false,
                     'message' => $response->get_error_message(),
@@ -50,7 +51,7 @@ function show_current_domain_notice() {
 
             // var_dump("Body: " . $body);
             // var_dump("Data: ", $data);
-            var_dump("response: ", $response);
+            // var_dump("response: ", $response);
 
             var_dump($data["sheet_url"]);
 
