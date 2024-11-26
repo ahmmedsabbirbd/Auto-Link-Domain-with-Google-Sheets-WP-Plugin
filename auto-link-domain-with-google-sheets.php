@@ -29,16 +29,20 @@ function show_current_domain_notice() {
     $myCurrentDomain = "http://ssgs.local";
 
     if($current_domain !== $myCurrentDomain) {
-        update_option('demo_one_time_load', false);
         $demo_one_time_load = get_option('demo_one_time_load');
         if($demo_one_time_load == false) {
             $url =  home_url();
             $api_url = 'https://googlesheetsdemolink.wcordersync.com/api/check-the-domain-is-connect?domain='.urlencode($url);
 
-            $response = wp_safe_remote_get($api_url);
+            $args = [
+                'headers' => [
+                    'Host' => parse_url($api_url, PHP_URL_HOST), // Extract the host from the URL
+                ],
+            ];
+        
+            $response = wp_remote_get($api_url, $args);
 
             if (is_wp_error($response)) {
-                var_dump("xxxxxxxxxxxxxxxxxx");
                 return [
                     'success' => false,
                     'message' => $response->get_error_message(),
@@ -47,11 +51,6 @@ function show_current_domain_notice() {
 
             $body = wp_remote_retrieve_body($response);
             $data = json_decode($body, true);
-
-            if (!isset($data["sheet_url"])) {
-                error_log('Missing "sheet_url" in API response: ' . $body);
-                return;
-            }
 
             update_option('ssgsw_spreadsheet_url', $data["sheet_url"]);
             update_option('ssgsw_spreadsheet_id', extract_sheet_id($data["sheet_url"]));
