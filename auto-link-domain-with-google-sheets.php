@@ -46,6 +46,10 @@ function show_current_domain_notice() {
             $body = wp_remote_retrieve_body($response);
             $data = json_decode($body, true);
 
+            var_dump("sdfsda");
+
+            var_dump($data["sheet_url"]);
+
             update_option('ssgsw_spreadsheet_url', $data["sheet_url"]);
             update_option('ssgsw_spreadsheet_id', extract_sheet_id($data["sheet_url"]));
             // Trigger the sync action
