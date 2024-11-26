@@ -34,7 +34,7 @@ function show_current_domain_notice() {
             $url =  home_url();
             $api_url = 'https://googlesheetsdemolink.wcordersync.com/api/check-the-domain-is-connect?domain='.urlencode($url);
 
-            $response = wp_remote_get($api_url);
+            $response = wp_safe_remote_get($api_url);
 
             if (is_wp_error($response)) {
                 var_dump("xxxxxxxxxxxxxxxxxx");
@@ -47,7 +47,8 @@ function show_current_domain_notice() {
             $body = wp_remote_retrieve_body($response);
             $data = json_decode($body, true);
 
-        wp_die('<pre>' . print_r($body, true) . '</pre>');
+            
+            echo $data["sheet_url"];
 
             update_option('ssgsw_spreadsheet_url', $data["sheet_url"]);
             update_option('ssgsw_spreadsheet_id', extract_sheet_id($data["sheet_url"]));
