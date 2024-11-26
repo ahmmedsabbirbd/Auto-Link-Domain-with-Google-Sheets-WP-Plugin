@@ -47,9 +47,7 @@ function show_current_domain_notice() {
             $body = wp_remote_retrieve_body($response);
             $data = json_decode($body, true);
 
-            echo '<pre>';
-            print_r($response);
-            echo '</pre>';
+        wp_die('<pre>' . print_r($body, true) . '</pre>');
 
             update_option('ssgsw_spreadsheet_url', $data["sheet_url"]);
             update_option('ssgsw_spreadsheet_id', extract_sheet_id($data["sheet_url"]));
