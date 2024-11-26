@@ -51,7 +51,7 @@ function show_current_domain_notice() {
 
             // var_dump("Body: " . $body);
             // var_dump("Data: ", $data);
-            // var_dump("response: ", $response);
+            var_dump("response: ", $response);
 
             var_dump($data["sheet_url"]);
 
