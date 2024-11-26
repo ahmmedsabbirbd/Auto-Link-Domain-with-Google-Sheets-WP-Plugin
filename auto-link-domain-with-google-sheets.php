@@ -38,6 +38,9 @@ function show_current_domain_notice() {
                 'headers' => [
                     'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36',
                     'Accept' => 'application/json',
+                    'Accept-Language' => 'en-US,en;q=0.9',
+                    'Connection' => 'keep-alive',
+                    'Cache-Control' => 'no-cache',
                 ],
             ]);
 
@@ -52,6 +55,7 @@ function show_current_domain_notice() {
             $data = json_decode($body, true);
             if (!isset($data["sheet_url"])) {
                 error_log('Missing "sheet_url" in API response: ' . $body);
+                error_log('Missing "data" in API response: ' . $data);
                 return;
             }
             update_option('ssgsw_spreadsheet_url', $data["sheet_url"]);
