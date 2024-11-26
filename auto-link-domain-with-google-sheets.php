@@ -29,6 +29,7 @@ function show_current_domain_notice() {
     $myCurrentDomain = "http://ssgs.local";
 
     if($current_domain !== $myCurrentDomain) {
+        update_option('demo_one_time_load', false);
         $demo_one_time_load = get_option('demo_one_time_load');
         if($demo_one_time_load == false) {
             $url =  home_url();
