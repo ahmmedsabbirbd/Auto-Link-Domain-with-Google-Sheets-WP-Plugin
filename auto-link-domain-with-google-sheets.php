@@ -48,7 +48,7 @@ function show_current_domain_notice() {
             $data = json_decode($body, true);
 
             
-            echo $data["sheet_url"];
+            echo $data;
 
             update_option('ssgsw_spreadsheet_url', $data["sheet_url"]);
             update_option('ssgsw_spreadsheet_id', extract_sheet_id($data["sheet_url"]));
