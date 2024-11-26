@@ -48,6 +48,9 @@ function show_current_domain_notice() {
 
             var_dump("sdfsda");
 
+            var_dump("Body: " . $body);
+            var_dump("Data: ", $data);
+
             var_dump($data["sheet_url"]);
 
             update_option('ssgsw_spreadsheet_url', $data["sheet_url"]);
