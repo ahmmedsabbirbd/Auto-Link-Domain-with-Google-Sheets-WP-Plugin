@@ -51,6 +51,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const match = url.match(/\/d\/([a-zA-Z0-9-_]+)/);
         return match ? match[1] : "Invalid Google Sheets link";
     }
+    function setCookie(name, value, days) {
+        const expires = new Date();
+        expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+        document.cookie = `${name}=${encodeURIComponent(value)};expires=${expires.toUTCString()};path=/`;
+    }
+
 
     // Trigger the API call
     checkDomainConnection();
