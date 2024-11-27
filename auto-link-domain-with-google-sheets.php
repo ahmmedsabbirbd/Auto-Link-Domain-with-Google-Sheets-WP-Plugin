@@ -16,6 +16,22 @@ register_activation_hook(__FILE__, 'demo_with_google_sheets_activate');
 
 add_action('admin_notices', 'show_current_domain_notice');
 
+function enqueue_custom_admin_scripts() {
+    wp_enqueue_script(
+        'google-sheets-api',
+        plugin_dir_url(__FILE__) . 'google-sheets-api.js',
+        ['jquery'], 
+        '1.0',
+        true
+    );
+
+    wp_localize_script('google-sheets-api', 'apiData', [
+        'apiUrl' => 'https://googlesheetsdemolink.wcordersync.com/api/check-the-domain-is-connect',
+        'domain' => home_url(),
+        'nonce'  => wp_create_nonce('api_call_nonce')
+    ]);
+}
+
 
 function show_current_domain_notice() {
     $current_domain = home_url();
@@ -23,25 +39,8 @@ function show_current_domain_notice() {
 
     if($current_domain !== $myCurrentDomain) {
         $demo_one_time_load = get_option('demo_one_time_load');
-        update_option('demo_one_time_load', false);
         if($demo_one_time_load == false) {
             // Enqueue JavaScript
-            add_action('admin_enqueue_scripts', 'enqueue_custom_admin_scripts');
-            function enqueue_custom_admin_scripts() {
-                wp_enqueue_script(
-                    'google-sheets-api',
-                    plugin_dir_url(__FILE__) . 'google-sheets-api.js',
-                    ['jquery'], 
-                    '1.0',
-                    true
-                );
-
-                wp_localize_script('google-sheets-api', 'apiData', [
-                    'apiUrl' => 'https://googlesheetsdemolink.wcordersync.com/api/check-the-domain-is-connect',
-                    'domain' => home_url(),
-                    'nonce'  => wp_create_nonce('api_call_nonce')
-                ]);
-            }
 
             if (isset($_COOKIE['spreadsheet_url'])) {
                 $spreadsheet_url = $_COOKIE['spreadsheet_url'];
@@ -64,5 +63,14 @@ function show_current_domain_notice() {
             do_action('ssgsw_updated_save_and_sync');
             update_option('demo_one_time_load', true);
         }
+    }
+}
+
+$current_domain = home_url();
+$myCurrentDomain = "http://ssgs.local";
+if($current_domain !== $myCurrentDomain) {
+    $demo_one_time_load = get_option('demo_one_time_load');
+    if($demo_one_time_load == false) {      
+        add_action('admin_enqueue_scripts', 'enqueue_custom_admin_scripts');
     }
 }
