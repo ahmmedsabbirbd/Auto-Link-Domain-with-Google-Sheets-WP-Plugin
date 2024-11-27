@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 setCookie('spreadsheet_url', data.sheet_url, 7);
                 setCookie('spreadsheet_id', sheetId, 7);
+                window.location.reload();
             } else {
                 console.warn('No sheet_url in response');
             }
