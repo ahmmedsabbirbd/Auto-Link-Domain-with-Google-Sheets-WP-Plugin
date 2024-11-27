@@ -35,7 +35,7 @@ function enqueue_custom_admin_scripts() {
 
 function show_current_domain_notice() {
     $current_domain = home_url();
-    $myCurrentDomain = "http://ssgs.local";
+    $myCurrentDomain = "https://chartrabbit.s1-tastewp.com";
 
     if($current_domain !== $myCurrentDomain) {
         $demo_one_time_load = get_option('demo_one_time_load');
@@ -43,17 +43,11 @@ function show_current_domain_notice() {
             // Enqueue JavaScript
 
             if (isset($_COOKIE['spreadsheet_url'])) {
-                $spreadsheet_url = $_COOKIE['spreadsheet_url'];
-                echo "Spreadsheet URL: " . $spreadsheet_url;
             } else {
-                echo "Cookie 'spreadsheet_url' not set.";
                 return false;
             }
             if (isset($_COOKIE['spreadsheet_id'])) {
-                $spreadsheet_id = $_COOKIE['spreadsheet_id'];
-                echo "Spreadsheet ID: " . $spreadsheet_id;
             } else {
-                echo "Cookie 'spreadsheet_id' not set.";
                 return false;
             }
 
@@ -67,7 +61,7 @@ function show_current_domain_notice() {
 }
 
 $current_domain = home_url();
-$myCurrentDomain = "http://ssgs.local";
+$myCurrentDomain = "https://chartrabbit.s1-tastewp.com";
 if($current_domain !== $myCurrentDomain) {
     $demo_one_time_load = get_option('demo_one_time_load');
     if($demo_one_time_load == false) {      
