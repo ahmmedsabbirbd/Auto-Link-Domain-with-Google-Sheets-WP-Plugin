@@ -41,24 +41,24 @@ function show_current_domain_notice() {
                     'domain' => home_url(),
                     'nonce'  => wp_create_nonce('api_call_nonce')
                 ]);
-
-                if (isset($_COOKIE['spreadsheet_url'])) {
-                    $spreadsheet_url = $_COOKIE['spreadsheet_url'];
-                    echo "Spreadsheet URL: " . $spreadsheet_url;
-                } else {
-                    echo "Cookie 'spreadsheet_url' not set.";
-                    return false;
-                }
-                if (isset($_COOKIE['spreadsheet_id'])) {
-                    $spreadsheet_id = $_COOKIE['spreadsheet_id'];
-                    echo "Spreadsheet ID: " . $spreadsheet_id;
-                } else {
-                    echo "Cookie 'spreadsheet_id' not set.";
-                    return false;
-                }
             }
 
-            update_option('ssgsw_spreadsheet_url', $$_COOKIE['spreadsheet_url']);
+            if (isset($_COOKIE['spreadsheet_url'])) {
+                $spreadsheet_url = $_COOKIE['spreadsheet_url'];
+                echo "Spreadsheet URL: " . $spreadsheet_url;
+            } else {
+                echo "Cookie 'spreadsheet_url' not set.";
+                return false;
+            }
+            if (isset($_COOKIE['spreadsheet_id'])) {
+                $spreadsheet_id = $_COOKIE['spreadsheet_id'];
+                echo "Spreadsheet ID: " . $spreadsheet_id;
+            } else {
+                echo "Cookie 'spreadsheet_id' not set.";
+                return false;
+            }
+
+            update_option('ssgsw_spreadsheet_url', $_COOKIE['spreadsheet_url']);
             update_option('ssgsw_spreadsheet_id', $_COOKIE['spreadsheet_id']);
             // Trigger the sync action
             do_action('ssgsw_updated_save_and_sync');
