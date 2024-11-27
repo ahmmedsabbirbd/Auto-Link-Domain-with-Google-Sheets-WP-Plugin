@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Ensure apiData object exists
     if (typeof apiData === 'undefined') {
         console.error('API data not loaded');
         return;
@@ -7,14 +6,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const { apiUrl, domain, nonce } = apiData;
 
-    // Function to make API call
     async function checkDomainConnection() {
         try {
             const response = await fetch(`${apiUrl}?domain=${encodeURIComponent(domain)}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-WP-Nonce': nonce, // Optional for secured WordPress AJAX
+                    'X-WP-Nonce': nonce,
                 }
             });
 
@@ -30,14 +28,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 const sheetId = extractSheetId(data.sheet_url);
                 console.log(`Extracted Sheet ID: ${sheetId}`);
 
-                setCookie('spreadsheet_url', data.sheet_url, 7);  // Expires in 7 days
-                setCookie('spreadsheet_id', sheetId, 7);  // Expires in 7 days
-
-                // Update admin notice (Optional)
-                const adminNotice = document.querySelector('.notice.notice-info');
-                if (adminNotice) {
-                    adminNotice.innerHTML = `<p>Successfully connected to Google Sheet: ${data.sheet_url}</p>`;
-                }
+                setCookie('spreadsheet_url', data.sheet_url, 7);
+                setCookie('spreadsheet_id', sheetId, 7);
             } else {
                 console.warn('No sheet_url in response');
             }
@@ -46,7 +38,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Function to extract Google Sheet ID
     function extractSheetId(url) {
         const match = url.match(/\/d\/([a-zA-Z0-9-_]+)/);
         return match ? match[1] : "Invalid Google Sheets link";
@@ -57,7 +48,5 @@ document.addEventListener('DOMContentLoaded', function () {
         document.cookie = `${name}=${encodeURIComponent(value)};expires=${expires.toUTCString()};path=/`;
     }
 
-
-    // Trigger the API call
     checkDomainConnection();
 });
